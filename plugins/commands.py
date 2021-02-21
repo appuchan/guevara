@@ -24,7 +24,7 @@ async def start(bot, message):
 @Client.on_callback_query()
 async def cb_handler(client: Client, query: CallbackQuery):
     if query.data == "disclaimer":
-        await message.reply('''
+        await query.message.edit_text('''
         DISCLAIMER‼️
 It is forbidden to download, stream, reproduce, or by any means, share, or consume, content without explicit permission from the content creator or legal copyright holder.. If you believe this bot is violating your intellectual property, contact the respective channels for removal.
 The Bot does not own any of these contents , it only index the files from telegram.
