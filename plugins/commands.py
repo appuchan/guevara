@@ -16,10 +16,19 @@ async def start(bot, message):
     else:
         buttons = [[
             InlineKeyboardButton('Search Here', switch_inline_query_current_chat=''),
-            InlineKeyboardButton('Go Inline', switch_inline_query=''),
+            InlineKeyboardButton('DISCLAIMER', callback_data="disclaimer"),
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply(START_MSG, reply_markup=reply_markup)
+        
+@Client.on_callback_query()
+async def cb_handler(client: Client, query: CallbackQuery):
+    if query.data == "disclaimer":
+        await message.reply('''
+        DISCLAIMER‼️
+It is forbidden to download, stream, reproduce, or by any means, share, or consume, content without explicit permission from the content creator or legal copyright holder.. If you believe this bot is violating your intellectual property, contact the respective channels for removal.
+The Bot does not own any of these contents , it only index the files from telegram.
+        ''')
 
 
 @Client.on_message(filters.command('channel') & filters.user(ADMINS))
