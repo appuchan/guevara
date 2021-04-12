@@ -1,4 +1,5 @@
-# [Media Search bot](https://github.com/Mahesh0253/Media-Search-bot)
+# Media Search bot
+
 
 * Index channel or group files for inline search.
 * When you post file on telegram channel or group this bot will save that file in database, so you can search easily in inline mode.
@@ -6,7 +7,7 @@
 
 ## Installation
 
-### Watch this video to create bot - https://youtu.be/dsuTn4qV2GA
+
 ### Easy Way
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
@@ -37,8 +38,8 @@ Check [`sample_info.py`](sample_info.py) before editing [`info.py`](info.py) fil
 * `API_HASH`: Get this value from [telegram.org](https://my.telegram.org/apps)
 * `CHANNELS`: Username or ID of channel or group. Separate multiple IDs by space
 * `ADMINS`: Username or ID of Admin. Separate multiple Admins by space
-* `DATABASE_URI`: [mongoDB](https://www.mongodb.com) URI. Get this value from [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/dsuTn4qV2GA)
-* `DATABASE_NAME`: Name of the database in [mongoDB](https://www.mongodb.com). For more help watch this [video](https://youtu.be/dsuTn4qV2GA)
+* `DATABASE_URI`: [mongoDB](https://www.mongodb.com) URI. Get this value from [mongoDB](https://www.mongodb.com). 
+* `DATABASE_NAME`: Name of the database in [mongoDB](https://www.mongodb.com).
 
 ### Optional Variables
 * `COLLECTION_NAME`: Name of the collections. Defaults to Telegram_files. If you going to use same database, then use different collection name for each bot
@@ -67,8 +68,8 @@ Contributions are welcome.
 
 ## Thanks to [Pyrogram](https://github.com/pyrogram/pyrogram)
 
-## Support
-[Update Channel](https://t.me/botxupdates) and [Support Group](https://t.me/botxsupport)
+
+
 
 ## License
 Code released under [The GNU General Public License](LICENSE).
