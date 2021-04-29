@@ -30,9 +30,9 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Messages
 START_MSG = """
-**Hi,I am Kurukkan bot by @subinps**
+**Hi,I am Bolivian bot by @appuchan123**
 Here you can search any movies in inline mode.
 """
 
 SHARE_BUTTON_TEXT = 'Checkout {username} for searching files'
-INVITE_MSG = environ.get('INVITE_MSG', 'Please join @subin_works to use this bot')
+
