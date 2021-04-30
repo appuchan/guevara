@@ -30,7 +30,7 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Messages
 START_MSG = """
-**Hi,I am Bolivian bot by @appuchan123**
+**Hi,I am  Guevara bot by @appuchan123**
 Here you can search any movies in inline mode.
 """
 
