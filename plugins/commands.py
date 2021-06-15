@@ -4,6 +4,24 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from info import START_MSG, CHANNELS, ADMINS
 from utils import Media
+#from translation import Translation
+from helper_funcs.display_progress import progress_for_pyrogram
+from helper_funcs.help_Nekmo_ffmpeg import take_screen_shot
+import time
+from pyrogram.types import InputMediaPhoto
+import shutil
+from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
+
+class Config(object):
+    DOWNLOAD_LOCATION = "./DOWNLOADS"
+
+class Translation(object):
+    DOWNLOAD_START = "Getting things ready for you\nStarting Download..."
+    UPLOAD_START = "Its almost over,Now Let me Upload it to Telegram "
+    AFTER_SUCCESSFUL_UPLOAD_MSG = "Succesfully Uploaded by Kurukkan"
+    REPLY_TO_DOC_FOR_SCSS = "Reply to a Telegram media to get screenshots"
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -110,3 +128,92 @@ async def delete(bot, message):
         await msg.edit('File is successfully deleted from database')
     else:
         await msg.edit('File not found in database')
+
+
+@Client.on_message(filters.command("ss"))
+async def generatescreenshots(bot, update):
+    if update.reply_to_message is not None:
+        download_location = Config.DOWNLOAD_LOCATION + "/"
+        a = await bot.send_message(
+            chat_id=update.chat.id,
+            text=Translation.DOWNLOAD_START,
+            reply_to_message_id=update.message_id
+        )
+        c_time = time.time()
+        the_real_download_location = await bot.download_media(
+            message=update.reply_to_message,
+            file_name=download_location,
+            progress=progress_for_pyrogram,
+            progress_args=(
+                Translation.DOWNLOAD_START,
+                a,
+                c_time
+            )
+        )
+        if the_real_download_location is not None:
+            await bot.edit_message_text(
+                text="File succesfully downloaded.\nNow taking screenshots",
+                chat_id=update.chat.id,
+                message_id=a.message_id
+            )
+            tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
+            if not os.path.isdir(tmp_directory_for_each_user):
+                os.makedirs(tmp_directory_for_each_user)
+            images = await generate_screen_shots(
+                the_real_download_location,
+                tmp_directory_for_each_user,
+                False,
+                Config.DEF_WATER_MARK_FILE,
+                5,
+                9
+            )
+            await bot.edit_message_text(
+                text=Translation.UPLOAD_START,
+                chat_id=update.chat.id,
+                message_id=a.message_id
+            )
+            media_album_p = []
+            if images is not None:
+                i = 0
+                caption = "Made With Love @subinps"
+                for image in images:
+                    if os.path.exists(image):
+                        if i == 0:
+                            media_album_p.append(
+                                InputMediaPhoto(
+                                    media=image,
+                                    caption=caption,
+                                    parse_mode="html"
+                                )
+                            )
+                        else:
+                            media_album_p.append(
+                                InputMediaPhoto(
+                                    media=image
+                                )
+                            )
+                        i = i + 1
+            await bot.send_media_group(
+                chat_id=update.chat.id,
+                disable_notification=False,
+                reply_to_message_id=a.message_id,
+                media=media_album_p
+            )
+            #
+            try:
+                shutil.rmtree(tmp_directory_for_each_user)
+                os.remove(the_real_download_location)
+            except:
+                pass
+            await bot.edit_message_text(
+                text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG,
+                chat_id=update.chat.id,
+                message_id=a.message_id,
+                disable_web_page_preview=True
+            )
+    else:
+        await bot.send_message(
+            chat_id=update.chat.id,
+            text=Translation.REPLY_TO_DOC_FOR_SCSS,
+            reply_to_message_id=update.message_id
+        )
