@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 import math
 import os
 import time
-from translation import Translation
+#from translation import Translation
 
 
 async def progress_for_pyrogram(
