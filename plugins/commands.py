@@ -163,7 +163,7 @@ async def generatescreenshots(bot, update):
                 the_real_download_location,
                 tmp_directory_for_each_user,
                 False,
-                Config.DEF_WATER_MARK_FILE,
+                None,
                 5,
                 9
             )
