@@ -1,4 +1,4 @@
-https://github.com/Mahesh0253/pyrogram/archive/inline.zip
+git+https://github.com/subinps/pyrogram@online-m
 tgcrypto
 umongo==2.3.0
 pytz
